@@ -1,8 +1,28 @@
 import React, { useState } from 'react'
+import { FaMapPin } from 'react-icons/fa'
 import styled from 'styled-components'
 
-const ProductImages = () => {
-  return <h4>product images</h4>
+const ProductImages = ({ images = [{ url: '' }] }) => {
+  const [activeImage, setActiveImage] = useState(images[0])
+
+  return (
+    <Wrapper>
+      <img src={activeImage.url} alt='main image' className='main' />
+      <div className='gallery'>
+        {images.map((image, index) => {
+          return (
+            <img
+              key={index}
+              src={image.url}
+              alt={image.filename}
+              onClick={() => setActiveImage(image)}
+              className={`${image.url === activeImage.url ? 'active' : null}`}
+            />
+          )
+        })}
+      </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
